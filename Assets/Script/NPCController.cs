@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class NPCController : MonoBehaviour
 {
     public GameObject Ball; // ボールオブジェクト
     public Transform TargetArea; // 相手チームのエリア
     public Vector3[] ReceivePositions; // 自分のチームのレシーブエリアの座標
     public Vector3[] TossPositions; // トスエリアの座標
-    public float moveSpeed = 5f; // プレイヤーの移動速度
+    public Vector3 homePosition; // NPCの待機位置
+    public float moveSpeed = 5f; // NPCの移動速度
     public float hitForce = 20f; // ボールを飛ばす力
     public float verticalLift = 10f; // 放物線を描くための上方向の力
     public float randomRange = 0.5f; // ランダムな方向の範囲
     public float jumpForce = 5f; // ジャンプ力
 
     private bool isBallInRange = false; // ボールが範囲内にあるか
-    private bool isGrounded = true; // プレイヤーが地面にいるか
+    private bool isGrounded = true; // NPCが地面にいるか
     private bool canJump = false; // ジャンプができるか
     private bool canReceive = true; // レシーブができるか
     private bool canToss = false; // トスができるか
@@ -28,32 +29,35 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleMovement(); // プレイヤーの移動処理
+        HandleMovement(); // NPCの移動処理
         HandleBallActions(); // ボールのアクション処理
     }
 
-    // プレイヤーの移動処理
+    // NPCの移動処理
     void HandleMovement()
     {
-        float moveX = 0f;
-        float moveZ = 0f;
-
-        if (Input.GetKey(KeyCode.W)) moveZ = 1f;
-        if (Input.GetKey(KeyCode.S)) moveZ = -1f;
-        if (Input.GetKey(KeyCode.A)) moveX = -1f;
-        if (Input.GetKey(KeyCode.D)) moveX = 1f;
-
-        Vector3 moveDirection = new Vector3(moveX, 0, moveZ).normalized;
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
-
-        // ジャンプ処理
-        if (canJump && isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (canReceive || canToss || canSpike)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb != null)
+            // ボールに向かって移動
+            Vector3 directionToBall = (Ball.transform.position - transform.position).normalized;
+            transform.Translate(directionToBall * moveSpeed * Time.deltaTime, Space.World);
+
+            // ボールの近くに到達したら停止
+            if (Vector3.Distance(transform.position, Ball.transform.position) < 1f)
             {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isGrounded = false;
+                transform.position = Ball.transform.position;
+            }
+        }
+        else if (!isBallInRange)
+        {
+            // ボールが範囲外にあるときは待機位置に戻る
+            Vector3 directionToHome = (homePosition - transform.position).normalized;
+            transform.Translate(directionToHome * moveSpeed * Time.deltaTime, Space.World);
+
+            // 待機位置に到達したら停止
+            if (Vector3.Distance(transform.position, homePosition) < 1f)
+            {
+                transform.position = homePosition;
             }
         }
     }
@@ -77,7 +81,6 @@ public class PlayerController : MonoBehaviour
 
                     canReceive = false;
                     canToss = true;
-                    canSpike = false;
                 }
                 else if (canToss)
                 {
@@ -127,7 +130,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // プレイヤーが地面に着地したときに呼ばれる
+    // NPCが地面に着地したときに呼ばれる
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Team_A_Ground"))

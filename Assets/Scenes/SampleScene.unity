@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 524422391}
   - component: {fileID: 524422390}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: Ground_A
   m_TagString: Team_A_Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +775,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.55
+  m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -789,6 +789,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -863,13 +864,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21125428, y: 0.06109023, z: -0.012460707, w: 0.9754406}
-  m_LocalPosition: {x: -4.75, y: 7.88, z: -11.05}
+  m_LocalRotation: {x: 0.4431697, y: 0.017664067, z: -0.013599216, w: 0.8961605}
+  m_LocalPosition: {x: -0.26, y: 11.06, z: -9.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 24.435, y: 7.188, z: 0.095}
+  m_LocalEulerAnglesHint: {x: 52.635, y: 1.851, z: -0.823}
 --- !u!154 &963194229
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -890,6 +891,20 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 0}
   m_EnableTreeColliders: 1
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d09cfa8be853d84f8c1682f50c109f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2081347352}
+  offset: {x: 0, y: 4.13, z: -1.14}
 --- !u!1 &1389623482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1058,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.55
+  m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1466270377
 GameObject:
@@ -1198,7 +1213,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.55
+  m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1515033827
 GameObject:
@@ -1213,7 +1228,7 @@ GameObject:
   - component: {fileID: 1515033830}
   - component: {fileID: 1515033829}
   m_Layer: 0
-  m_Name: Ground (1)
+  m_Name: Ground_B
   m_TagString: Team_B_Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1826,14 +1841,14 @@ MonoBehaviour:
   - {x: -1.72, y: 2, z: -5.17}
   - {x: -0.59, y: 2, z: -1.5}
   TossPositions:
-  - {x: -3.81, y: 2.45, z: -0.28}
-  - {x: -0.25, y: 2.45, z: -0.28}
-  - {x: 2.89, y: 2.45, z: -0.28}
+  - {x: -3.81, y: 2.45, z: -0.42}
+  - {x: -0.25, y: 2.45, z: -0.43}
+  - {x: 2.89, y: 2.45, z: -0.49}
   moveSpeed: 5
-  hitForce: 1
+  hitForce: 7
   verticalLift: 5
   randomRange: 0.1
-  jumpForce: 5
+  jumpForce: 6.5
 --- !u!135 &2081347354
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1853,8 +1868,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.55
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.65
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!65 &2081347355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1923,7 +1938,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3039861009782201092}
-  - component: {fileID: 8154185418595638806}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1980,20 +1994,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8154185418595638806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2354519793877873666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f63cb4069fb3b498f8f989d0cade65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamA: {fileID: 1763329513935017235}
-  teamB: {fileID: 6295495065427408732}
 --- !u!4 &8477591353245274135
 Transform:
   m_ObjectHideFlags: 0
